@@ -11,9 +11,9 @@ interface Movie {
   imdbId: string;
 }
 
-function getPreparedMovies(movies: Movie[], search: string): Movie[] {
+function getPreparedMovies(movies: Movie[], query: string): Movie[] {
   let preparedGoods = movies;
-  const normalizedSearch = search.trim().toLowerCase();
+  const normalizedSearch = query.trim().toLowerCase();
 
   if (normalizedSearch) {
     preparedGoods = preparedGoods.filter(good => {
@@ -31,13 +31,13 @@ function getPreparedMovies(movies: Movie[], search: string): Movie[] {
 }
 
 export const App: React.FC = () => {
-  const [search, setSearch] = useState('');
+  const [query, setQuery] = useState('');
 
   const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearch(event.target.value);
+    setQuery(event.target.value);
   };
 
-  const visibleMovies = getPreparedMovies(moviesFromServer, search);
+  const visibleMovies = getPreparedMovies(moviesFromServer, query);
 
   return (
     <div className="page">
@@ -55,7 +55,7 @@ export const App: React.FC = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
-                value={search}
+                value={query}
                 onChange={handleTitleChange}
               />
             </div>
